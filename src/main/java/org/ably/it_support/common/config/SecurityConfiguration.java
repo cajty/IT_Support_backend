@@ -1,7 +1,7 @@
 package org.ably.it_support.common.config;
 
 import lombok.RequiredArgsConstructor;
-import org.ably.circular.security.JwtAuthenticationFilter;
+import org.ably.it_support.common.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

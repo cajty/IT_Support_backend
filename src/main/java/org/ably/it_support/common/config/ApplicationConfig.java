@@ -1,7 +1,7 @@
 package org.ably.it_support.common.config;
 
 import lombok.AllArgsConstructor;
-import org.ably.circular.user.UserService;
+import org.ably.it_support.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

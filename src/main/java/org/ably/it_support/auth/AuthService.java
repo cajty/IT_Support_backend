@@ -1,11 +1,10 @@
 package org.ably.it_support.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.ably.circular.security.JwtService;
-import org.ably.circular.user.User;
-import org.ably.circular.user.UserMapper;
-import org.ably.circular.user.UserRepository;
-import org.ably.circular.user.UserStatus;
+import org.ably.it_support.common.security.JwtService;
+import org.ably.it_support.user.User;
+import org.ably.it_support.user.UserMapper;
+import org.ably.it_support.user.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +28,6 @@ public class AuthService {
     public boolean signup(RegisterRequest request) {
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setStatus(UserStatus.ACTIVE);
         User user1 = userRepository.save(user);
         if(user1 != null) {
             return true;

@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.ably.circular.user.User;
+import org.ably.it_support.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class JwtService {
 
     public String generateToken(User user) {
         Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getRoles());
+        extraClaims.put("role", user.getRole());
         return buildToken(user.getUsername(), extraClaims, jwtExpiration);
     }
 
