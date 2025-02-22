@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
 @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+@Mapping(target = "email", expression = "java(registerRequest.getEmail().toLowerCase())")
 AppUser toEntity(RegisterRequest registerRequest);
 
 
