@@ -11,17 +11,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class RegisterRequest {
 
     @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is mandatory")
+    @NotBlank(message = "Email should be valid exmple: test@example.com")
     private String email;
 
-    @NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "Password is require")
     @Size(min = 8, message = "Password should have at least 8 characters")
     private String password;
 
