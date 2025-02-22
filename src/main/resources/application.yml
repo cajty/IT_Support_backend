@@ -1,19 +1,19 @@
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url:  jdbc:oracle:thin:@//localhost:1521/ItSupport
+    username: admin
+    password: admin
     driver-class-name: oracle.jdbc.OracleDriver
 
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.Oracle12cDialect
+        dialect: org.hibernate.dialect.OracleDialect
     hibernate:
       ddl-auto: update
 
 server:
-  port: ${SERVER_PORT}
+  port: 8080
 
 springdoc:
   api-docs:
@@ -34,8 +34,8 @@ springdoc:
 
 security:
   jwt:
-    expiration-time: ${JWT_EXPIRATION}
-    secret-key: ${JWT_SECRET}
+    expiration-time: 86400000
+    secret-key: "Your32CharacterLongBase64EncodedSecretKeydvererberbbe"
 
 logging:
   level:

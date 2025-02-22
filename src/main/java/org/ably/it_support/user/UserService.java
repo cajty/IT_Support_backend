@@ -29,14 +29,14 @@ public class UserService {
 
 
 
-    public List<User> findAll() {
+    public List<AppUser> findAll() {
         return  userRepository.findAll();
     }
 
 
 
 
-    public User findById(UUID id) {
+    public AppUser findById(UUID id) {
         return userRepository.findById(id).orElseThrow(()
         -> new RuntimeException("User not found with id " + id));
     }
@@ -55,7 +55,7 @@ public class UserService {
     public void delete(UUID id) {userRepository.deleteById(id);}
 
 
-    public User findByEmail(String email) {
+    public AppUser findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
 

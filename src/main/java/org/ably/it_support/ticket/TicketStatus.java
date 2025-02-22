@@ -1,4 +1,7 @@
 package org.ably.it_support.ticket;
 
-public class TicketStatus {
+public enum TicketStatus {
+    NEW,
+    IN_PROGRESS,
+    RESOLVED
 }

@@ -2,10 +2,14 @@ package org.ably.it_support.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.ably.it_support.ticket.Ticket;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,11 +17,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
-
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Getter
 @Setter
@@ -26,13 +27,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(
-    name = "users",
+    name = "app_users",
     indexes = {
         @Index(name = "idx_user_email", columnList = "email", unique = true)
     }
 )
 @EntityListeners(AuditingEntityListener.class)
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -54,8 +55,7 @@ public class User implements UserDetails {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Version
     private Long version;
@@ -63,6 +63,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "createdBy", orphanRemoval = true)
+    private List<Ticket> tickets;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

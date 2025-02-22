@@ -1,4 +1,4 @@
 package org.ably.it_support.ticket;
 
-public class TicketServiceImpl {
+public class TicketServiceImpl implements TicketService{
 }

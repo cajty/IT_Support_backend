@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.ably.it_support.category.Category;
+import org.ably.it_support.user.AppUser;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -26,12 +29,21 @@ public class Ticket {
 
     private TicketPriority ticketPriority;
 
-    private LocalDateTime creationDate;
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate() {
-        creationDate = LocalDateTime.now();
-    }
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private AppUser createdBy;
+
+
+
+
 
 
 
