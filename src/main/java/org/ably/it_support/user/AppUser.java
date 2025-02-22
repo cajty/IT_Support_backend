@@ -57,8 +57,7 @@ public class AppUser implements UserDetails {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Version
-    private Long version;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
