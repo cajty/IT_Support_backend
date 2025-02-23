@@ -1,6 +1,7 @@
 package org.ably.it_support.auth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.ably.it_support.common.exception.UnauthorizedException;
 import org.ably.it_support.common.security.JwtService;
 import org.ably.it_support.user.AppUser;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;

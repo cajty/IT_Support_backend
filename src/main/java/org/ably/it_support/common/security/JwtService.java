@@ -64,14 +64,8 @@ public class JwtService {
         return Optional.ofNullable(extractClaim(token, Claims::getSubject));
     }
 
-    public List<String> extractRoles(String token) {
-        Claims claims = extractAllClaims(token);
-        Object roles = claims.get("role");
-        if (roles instanceof String) {
-            return Collections.singletonList((String) roles);
-        }
-        return Collections.emptyList();
-    }
+
+
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
