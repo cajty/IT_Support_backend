@@ -1,5 +1,6 @@
 package org.ably.it_support.ticket;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,11 @@ public class Ticket {
 
     private String  description;
 
+    @Enumerated(EnumType.STRING)
     private TicketPriority ticketPriority;
+
+    @Enumerated(EnumType.STRING)
+    private TicketStatus status;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -41,6 +46,10 @@ public class Ticket {
     @JoinColumn(name = "created_by", nullable = false)
     private AppUser createdBy;
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 
 
