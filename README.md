@@ -160,7 +160,3 @@ Common issues:
 - **Database connection errors**: Check Oracle credentials and availability
 - **Authentication issues**: Ensure JWT token is properly included in requests
 - **Permission errors**: Verify user roles and access controls
-
-## License
-
-[Include your license information here]
