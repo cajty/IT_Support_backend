@@ -1,4 +1,4 @@
-package org.ably.it_support.common.validation;
+package org.ably.it_support.core.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

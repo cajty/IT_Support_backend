@@ -1,7 +1,7 @@
-package org.ably.it_support.common.config;
+package org.ably.it_support.core.config;
 
 import lombok.RequiredArgsConstructor;
-import org.ably.it_support.common.security.JwtAuthenticationFilter;
+import org.ably.it_support.core.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -34,6 +34,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
                     "api/auth/**",
+                    "/error",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/v2/api-docs",

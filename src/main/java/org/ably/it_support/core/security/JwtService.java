@@ -1,4 +1,4 @@
-package org.ably.it_support.common.security;
+package org.ably.it_support.core.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

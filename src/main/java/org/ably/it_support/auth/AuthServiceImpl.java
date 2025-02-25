@@ -2,8 +2,8 @@ package org.ably.it_support.auth;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ably.it_support.common.exception.UnauthorizedException;
-import org.ably.it_support.common.security.JwtService;
+import org.ably.it_support.core.exception.UnauthorizedException;
+import org.ably.it_support.core.security.JwtService;
 import org.ably.it_support.user.AppUser;
 import org.ably.it_support.user.Role;
 import org.ably.it_support.user.UserMapper;

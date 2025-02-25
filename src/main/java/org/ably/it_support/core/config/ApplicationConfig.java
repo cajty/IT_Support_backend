@@ -1,4 +1,4 @@
-package org.ably.it_support.common.config;
+package org.ably.it_support.core.config;
 
 import lombok.AllArgsConstructor;
 import org.ably.it_support.user.AppUser;

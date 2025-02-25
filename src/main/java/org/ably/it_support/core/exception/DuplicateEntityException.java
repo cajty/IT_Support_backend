@@ -1,4 +1,4 @@
-package org.ably.it_support.common.exception;
+package org.ably.it_support.core.exception;
 
 import org.springframework.http.HttpStatus;
 

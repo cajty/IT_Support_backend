@@ -3,8 +3,6 @@ package org.ably.it_support.ticket;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.ably.it_support.common.validation.EnumValue;
-
 
 
 @Getter

@@ -1,4 +1,4 @@
-package org.ably.it_support.common.security;
+package org.ably.it_support.core.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

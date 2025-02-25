@@ -2,27 +2,22 @@ package org.ably.it_support.ticket;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ably.it_support.common.exception.BusinessException;
-import org.ably.it_support.common.exception.NotFoundException;
+import org.ably.it_support.core.exception.BusinessException;
+import org.ably.it_support.core.exception.NotFoundException;
 
-import org.ably.it_support.common.security.SecurityUtil;
+import org.ably.it_support.core.security.SecurityUtil;
 import org.ably.it_support.user.AppUser;
 import org.ably.it_support.user.Role;
-import org.ably.it_support.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.rmi.server.UID;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

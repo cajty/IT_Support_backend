@@ -1,7 +1,5 @@
 package org.ably.it_support.user;
 
-import lombok.RequiredArgsConstructor;
-import org.ably.it_support.common.exception.NotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
