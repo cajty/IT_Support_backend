@@ -1,7 +1,7 @@
-package org.ably.it_support.common.config;
+package org.ably.it_support.core.config;
 
 import lombok.RequiredArgsConstructor;
-import org.ably.it_support.common.security.JwtAuthenticationFilter;
+import org.ably.it_support.core.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -33,17 +33,16 @@ public class SecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
-                        "/**"
-//                    "/auth/**",
-//                    "/error",
-//                    "/swagger-ui/**",
-//                    "/swagger-ui.html",
-//                    "/v2/api-docs",
-//                    "/v3/api-docs",
-//                    "/v3/api-docs/**",
-//                    "/swagger-resources",
-//                    "/swagger-resources/**",
-//                    "/webjars/**"
+                    "api/auth/**",
+                    "/error",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v2/api-docs",
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/swagger-resources",
+                    "/swagger-resources/**",
+                    "/webjars/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )

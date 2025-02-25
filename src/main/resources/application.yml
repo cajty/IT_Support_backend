@@ -15,26 +15,22 @@ spring:
 server:
   port: 8080
 
-springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    disable-swagger-default-url: true
-    display-request-duration: true
-    tags-sorter: alpha
-    operations-sorter: alpha
-  packages-to-scan: org.ably.circular
-  paths-to-match: /**
-  show-actuator: false
-  default-produces-media-type: application/json
-  default-consumes-media-type: application/json
+  springdoc:
+    api-docs:
+      enabled: true
+      path: /v3/api-docs
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+    packages-to-scan: org.ably.it_support
+    paths-to-match: /**
 
 security:
+  security:
+    cors:
+      allowed-origins: "http://localhost:4200, http://localhost:8080"
   jwt:
-    expiration-time: 86400000
+    expiration-time: 86400000 # = 1 day # 60,000 = 1min
     secret-key: "Your32CharacterLongBase64EncodedSecretKeydvererberbbe"
 
 logging:

@@ -1,4 +1,4 @@
-package org.ably.it_support.common.security;
+package org.ably.it_support.core.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,24 +10,29 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
     @Value("${security.jwt.secret-key}")
-    private String secretKey ;
-
+    private String secretKeyEncoded;
 
     @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration = 864000000;
+    private long jwtExpiration;
 
+    private Key secretKey;
 
+    private final Set<String> revokedTokens = ConcurrentHashMap.newKeySet();
 
-
+    @PostConstruct
+    public void init() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKeyEncoded);
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     public String generateToken(AppUser appUser) {
         Map<String, Object> extraClaims = new HashMap<>();
@@ -35,32 +40,32 @@ public class JwtService {
         return buildToken(appUser.getUsername(), extraClaims, jwtExpiration);
     }
 
-
-
-    private String buildToken(
-            String email,
-            Map<String, Object> extraClaims,
-            long expiration
-    ) {
-        return Jwts
-                .builder()
+    private String buildToken(String email, Map<String, Object> extraClaims, long expiration) {
+        return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()))
-                && !isTokenExpired(token);
+        Optional<String> usernameOpt = extractUsername(token);
+
+        if (usernameOpt.isEmpty() || revokedTokens.contains(token)) {
+            return false;
+        }
+
+        return usernameOpt.get().equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public Optional<String> extractUsername(String token) {
+        return Optional.ofNullable(extractClaim(token, Claims::getSubject));
     }
+
+
+
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -68,9 +73,8 @@ public class JwtService {
     }
 
     public Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -84,10 +88,10 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
+    public void revokeToken(String token) {
+        revokedTokens.add(token);
     }
+
     public long getExpiration() {
         return jwtExpiration;
     }

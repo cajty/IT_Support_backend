@@ -1,5 +1,7 @@
 package org.ably.it_support.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.ably.it_support.ticket.Ticket;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.List;
 
 @Getter
@@ -29,6 +30,8 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Ticket> tickets;
+
 
 }

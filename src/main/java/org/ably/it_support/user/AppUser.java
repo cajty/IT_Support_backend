@@ -57,8 +57,7 @@ public class AppUser implements UserDetails {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Version
-    private Long version;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
@@ -67,11 +66,17 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "createdBy", orphanRemoval = true)
     private List<Ticket> tickets;
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new SimpleGrantedAuthority(role.name()));
+        return Set.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
+
 
     @Override
     public String getUsername() {
