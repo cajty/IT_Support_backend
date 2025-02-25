@@ -161,6 +161,3 @@ Common issues:
 - **Authentication issues**: Ensure JWT token is properly included in requests
 - **Permission errors**: Verify user roles and access controls
 
-## License
-
-[Include your license information here]
